@@ -1,0 +1,28 @@
+server:
+  port: 8882
+spring:
+  kafka:
+    producer:
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+    listener:
+      missing-topics-fatal: false
+    consumer:
+      group-id: microkafka-sample
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      auto-offset-reset: latest
+      properties:
+        spring.json.trusted.packages: "*"
+        spring.json.type.mapping: order:microkafka.invoices.model.Order
+  datasource:
+    url: jdbc:h2:mem:ms-invoices-db
+    driverClassName: org.h2.Driver
+    username: sa
+    password:
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: create
+    generate-ddl: true
+  h2:
+    console:
+      enabled: true

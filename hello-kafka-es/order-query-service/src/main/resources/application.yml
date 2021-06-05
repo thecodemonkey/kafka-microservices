@@ -1,0 +1,11 @@
+server:
+  port: 8885
+spring:
+  kafka:
+    consumer:
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      group-id: ${random.uuid}
+      auto-offset-reset: earliest
+      properties:
+        spring.json.trusted.packages: "*"
+        spring.json.type.mapping: order:kafka.es.query.model.OrderEvent

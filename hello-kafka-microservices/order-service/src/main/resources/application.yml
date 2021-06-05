@@ -1,0 +1,21 @@
+server:
+  port: 8881
+spring:
+  kafka:
+    producer:
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      properties:
+        spring.json.type.mapping: order:microkafka.orders.model.Order
+  datasource:
+    url: jdbc:h2:mem:ms-orders-db
+    driverClassName: org.h2.Driver
+    username: sa
+    password:
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: create
+    generate-ddl: true
+  h2:
+    console:
+      enabled: true

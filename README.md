@@ -1,6 +1,6 @@
 # Kafka
 
-A series of tiny examples around the **Kafka** and **event driven microservices**
+A series of tiny examples around the **Kafka** and **event driven microservices** implemented in Kotlin
 
 ![kafka microservices](docs/kafka.png)
 

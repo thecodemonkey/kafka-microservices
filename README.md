@@ -8,14 +8,19 @@ A series of tiny examples around the **Kafka** and **event driven microservices*
 - [the goal](#the-goal-of-this-project)
 - [samples](#sample-projects)  
   - [hello kafka](#hello-kafka)
+  - [hello kafka api](#hello-kafka-api)
+  - [hello kafka unit-test](#hello-kafka-unit-test)
   - [hello kafka streams](#hello-kafka-streams)
   - [hello kafka microservices](#hello-kafka-microservices)
   - [hello kafka cqrs](#hello-kafka-cqrs)
   - [hello kafka event sourcing](#hello-kafka-event-sourcing)    
   - [hello kafka saga](#hello-kafka-saga)    
   - [hello kafka connect](#hello-kafka-connect)
-- [set up a local Kafka environment](#set-up-a-local-kafka-environment)
-  - [prerequisites](#prerequisites)
+  - [hello kafka ksqlDB](#hello-kafka-ksqldb)
+- [contribution](#contribution)
+- [contact](#contact)
+- [license](#license)
+  
   
 
 <br/><br/>
@@ -72,11 +77,28 @@ so that you can reach the big goal with small steps.
 This repo contains several projects.
 <br/><br/>
 
+
 <a name="hello-kafka"></a>
 
 ### [hello **kafka**](hello-kafka) <br/>
+
+setting up a local kafka playground. 
+More about the Kafka ecosystem.
+
+<br/><br/>
+
+<a name="hello-kafka-api"></a>
+
+### [hello **kafka** api](hello-kafka-pubsub) <br/>
 a simple publish/subscribe sample using Kafka + Spring + Kotlin + Gradle
 
+<br/><br/>
+
+<a name="hello-kafka-unit-test"></a>
+
+### hello **kafka** unit-test
+
+xxx
 <br/><br/>
 
 <a name="hello-kafka-streams"></a>
@@ -148,45 +170,29 @@ a minimal Kafka Connect implementation using Kafka + Spring + Kotlin + Gradle + 
 
 <br/><br/>
 
-## setting up a local Kafka environment
+<a name="hello-kafka-ksqlDB"></a>
 
-### prerequisites
+### hello **kafka ksqlDB**
 
-- docker/docker-compose
-- local dns mapping: 127.0.0.1 kafka
+a minimal stream processing example using Kafka ksqlDB
+
+*...coming soon*
 
 <br/><br/>
 
-An executable Kafka environment consists in a minimal variant of at least 2 components:
+## contibution
 
-- Kafka Broker (a single Node of a Kafka cluster :9092)
-- Zookeeper (shared Configuration/ACL/health Service)
+You are invited to [contribute](CONTRIBUTING.md) to the project.
 
+<br/><br/>
 
-This project provides a docker-compose.yml to run a complete Kafka environment locally.
-In addition, the docker-compose.yml contains a web UI for managing the Kafka system. The web UI is
-after a successful start of the docker-compose at http://localhost:8081
-There you can also create topics, write and read messages.
+## contact
 
-
-
-> The Kafka environment absolutely needs a host name (KAFKA_ADVERTISED_HOST_NAME) this is already in docker-compose.yml
-> configured as **"kafka"**.
-> 
-> So you need a DNS entry in the local etc / hosts file:
-> 
-> 127.0.0.1  kafka
-
-With docker-compose the Kafka environment can be started and stopped. In the individual projects, depending on the environment
-the individual tasks are provided that wrap the actual docker-compose command.
-
-```bash
-
-docker-compose -f docker-compose.yml up -d   # start kafka environment
-docker-compose down                          # stop kafka environment
-  
-```
+write me on [twitter](https://twitter.com/chillya).
 
 <br/><br/>
 
 
+## license
+
+i ❤️ [MIT](LICENSE)

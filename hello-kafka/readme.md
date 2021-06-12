@@ -1,123 +1,140 @@
 # Hello Kafka 
-a tiny publish/subscribe example using Kafka + Spring + Kotlin + Gradle
+setting up a local kafka playground.
 
 ![alt text](../docs/kafka-publish-subscribe-simple.png)
 
-# Example
+An executable Kafka environment consists in a minimal variant of at least 2 components:
 
-This example demonstrates a very simple use of publish/subscribe in Kafka.
-There are only 2 components, Producer and Consumer. Both are implemented as Spring @Services and run completely asynchronously.
-The two components could also be outsourced to separate applications or 2 separate processes.
-
-<br/><br/>
-
-### Producer
-
-The producer sends a new message(a simple string) every second to a Kafka topic called **hello-topic**
-For checking purposes, the timestamp is appended:
-
-```bash
-SEND    MESSAGE : hello kafka 2021-05-24T13:32:49.086
-```
-
-The implementation of the producer is really very easy, especially thanks to Spring:
-
-```kotlin
-@Scheduled(fixedRate = 1000)
-fun send() {
-    val message: String = "hello kafka  " + LocalDateTime.now().toString()
-    println("SEND    MESSAGE : $message")
-
-    this.kafka.send("hello-topic", message)   // val kafka: KafkaTemplate<String, String> a generic injectable height level Spring Component 
-}
-```
+- Kafka Broker (a single Node of a Kafka cluster :9092)
+- Zookeeper (shared Configuration/ACL/health Service)
 
 <br/><br/>
 
-### Consumer
+## Kafka in Docker
 
-The consumer subscribes to the topic **hello-topic** and receives a new message(a string) 
-every time it arrives in the Kafka topic.
+```yaml
+#docker-compose.yml
 
-```bash
-RECEIVE MESSAGE : hello kafka 2021-05-24T13:32:49.086
+version: "3.4"
+
+services:
+  zookeeper:
+    image: zookeeper:3.7.0
+    ports:
+      - "2181:2181"
+
+  kafka:
+    image: wurstmeister/kafka:2.12-2.5.0
+    ports:
+      - "9092:9092"
+    depends_on:
+      - zookeeper
+    environment:
+      KAFKA_ADVERTISED_HOST_NAME: kafka
+      KAFKA_ADVERTISED_PORT: "9092"
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_MESSAGE_MAX_BYTES: 104858800
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
 ```
 
-The implementation of the consumer is also very simple:
+## Broker
 
-```kotlin
-    @KafkaListener(topics= ["hello-topic"], groupId = "kafka_kotlin_id")
-    fun consume(message: String) {
-        println("RECEIVE MESSAGE : $message");
-    }
-```
+xxx
 
 <br/><br/>
 
-### alternative implementation
+## Zookeeper
 
-In the example, **KafkaTemplate** is used to send messages.
-This is a preconfigured height level component provided by the Spring Framework.
-
-Alternatively, you can also use the low level component **KafkaProducer** to send messages.
-However, this requires some parameters that have to be preconfigured before messages can be sent to Kafka:
-
-```kotlin
-
- 
-        val map = mutableMapOf<String, String>()
-        map["key.serializer"] = "org.apache.kafka.common.serialization.StringSerializer"
-        map["value.serializer"] = "org.apache.kafka.common.serialization.StringSerializer"
-        map["bootstrap.servers"] = "localhost:9092"
-        
-        val producer = KafkaProducer<String, String>(map as Map<String, Any>?)
-        producer.send(ProducerRecord("hello-topic", message))
-
-```
-
-The same applies to the consumer. There is also the low level component **KafkaConsumer** with which you can receive messages.
+xxx
 
 <br/><br/>
 
+## REST Proxy (optional)
 
+xxx
 
-## run sample
+<br/><br/>
+
+## Admin UI (optional)
+
+xxx
+
+<br/><br/>
+
+## setting up a local Kafka environment
 
 ### prerequisites
 
 - docker/docker-compose
-- gradle
-- java sdk 1.8
-- kotlin
 - local dns mapping: 127.0.0.1 kafka
 
 <br/><br/>
 
-```shell
-                                          # 1. get project sources from git
-git clone https://github.com/thecodemonkey/kafka-microservices.git      
+### run Kafka
 
-                                          # 2. local dns setup => etc/hosts => 127.0.0.1  kafka
+This project provides a docker-compose.yml to run a complete Kafka environment locally.
+In addition, the docker-compose.yml contains a web UI for managing the Kafka system. The web UI is
+after a successful start of the docker-compose at http://localhost:8081
+There you can also create topics, write and read messages.
 
-cd  hello-kafka                           # 3. go to project root folder  
+> The Kafka environment absolutely needs a host name (KAFKA_ADVERTISED_HOST_NAME) this is already in docker-compose.yml
+> configured as **"kafka"**.
+>
+> So you need a DNS entry in the local etc / hosts file:
+>
+> 127.0.0.1  kafka
 
-gradle start-kafka                        # 4. start kafka infrastructure(zookeeper, kafka, web gui) as docker containers.
-                                          # see docker-compose.yml for more details
-
-gradle bootRun                            # 5. start publish and subscribe process (sends messages to and receives messages from kafka)
-
-
-```
-
-see console output:
+With docker-compose the Kafka environment can be started and stopped. In the individual projects, depending on the environment
+the individual tasks are provided that wrap the actual docker-compose command.
 
 ```bash
-SEND    MESSAGE : hello kafka 2021-05-24T13:32:49.086
-RECEIVE MESSAGE : hello kafka 2021-05-24T13:32:49.086
+
+docker-compose -f docker-compose.yml up -d   # start kafka environment
+docker-compose down                          # stop kafka environment
+  
+```
+
+control Kafka outside of Docker :
+https://gist.github.com/DevoKun/01b6c9963d5508579f4cbd75d52640a9
+
+
+## play with Kafka
+
+
+```bash
+
+    docker exec -it kafka-microservices_kafka_1 /opt/kafka_2.12-2.5.0/bin/kafka-topics.sh --create --zookeeper zookeeper:2181 --replication-factor 1 --partitions 1 --topic testwarhier
+
+    #List Brokers
+    docker exec -ti kafka /usr/bin/broker-list.sh
+    
+    ## List Topics
+    docker exec -ti kafka /opt/kafka/bin/kafka-topics.sh --list --zookeeper zookeeper:2181
+    
+    ## Create a Topic
+    docker exec -ti kafka /opt/kafka/bin/kafka-topics.sh --create --zookeeper zookeeper:2181 --replication-factor 1 --partitions 1 --topic test2
+    docker exec -it kafka-microservices_kafka_1 /opt/kafka/bin/kafka-topics.sh --create --zookeeper zookeeper:2181 --replication-factor 1 --partitions 1 --topic testwarhier12323
+    
+    ## List Topics
+    docker exec -ti kafka /opt/kafka/bin/kafka-topics.sh --list --zookeeper zookeeper:2181
+
+
+    ##consume 
+    docker exec kafka kafka-console-consumer --bootstrap-server localhost:29092 --topic foo -new-consumer --from-beginning --max-messages 42
+    
 ```
 
 <br/><br/>
 
+### send a message
+
+<br/><br/>
+
+### receive the message
+
+<br/><br/>
 
 -----
 
@@ -129,7 +146,7 @@ Appropriate messaging systems are used to enable such publish/subscribe mechanis
 Kafka is one of those systems. Regardless of what makes Kafka so unique and powerful, Kafka is first and foremost a messaging system like 
 E.g. RabbitMQ or Redis.
 
-However, Kafka can do much more than just publish/subscribe. Kafka's real strength lies in **stream processing**.
+However, Kafka can do much more than just publish/subscribe. Kafka's real power lies in **stream processing**.
 Kafka is able to manage very large data streams with extremely high performance. These data streams are persisted in the Kafka system.
 This means that the data can not only be processed in real time, but can also be used for analysis.
 With libraries such as Kafka Streams API, states can be determined from data streams and also persisted.
@@ -147,3 +164,5 @@ Theoretically, Kafka can be used as a:
 
 
 All of this makes Kafka so powerful and unique.
+
+## Kafka ecosystem

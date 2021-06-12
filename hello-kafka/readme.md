@@ -1,7 +1,7 @@
 # Hello Kafka 
 setting up a local kafka playground.
 
-![alt text](../docs/kafka-publish-subscribe-simple.png)
+![alt text](../docs/kafka-basic.png)
 
 An executable Kafka environment consists in a minimal variant of at least 2 components:
 

@@ -89,7 +89,7 @@ More about the Kafka ecosystem.
 
 <a name="hello-kafka-api"></a>
 
-### [hello **kafka** api](hello-kafka-pubsub) <br/>
+### [hello **kafka** api](hello-kafka-api) <br/>
 a simple publish/subscribe sample using Kafka + Spring + Kotlin + Gradle
 
 <br/><br/>
@@ -98,7 +98,7 @@ a simple publish/subscribe sample using Kafka + Spring + Kotlin + Gradle
 
 ### hello **kafka** unit-test
 
-xxx
+*...coming soon*
 <br/><br/>
 
 <a name="hello-kafka-streams"></a>

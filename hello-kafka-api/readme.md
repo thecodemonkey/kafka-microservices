@@ -121,29 +121,8 @@ RECEIVE MESSAGE : hello kafka 2021-05-24T13:32:49.086
 
 -----
 
-## About Kafka
+## About Kafka API
 
-In a distributed system, different sub-systems can communicate via publish/subscribe patterns with each other. 
-The producer can write messages and the consumer can subscribe to the message channel/queue and receive the messages.
-Appropriate messaging systems are used to enable such publish/subscribe mechanisms. There are of course differences in the details, but at this point there are only details.
-Kafka is one of those systems. Regardless of what makes Kafka so unique and powerful, Kafka is first and foremost a messaging system like 
-E.g. RabbitMQ or Redis.
-
-However, Kafka can do much more than just publish/subscribe. Kafka's real strength lies in **stream processing**.
-Kafka is able to manage very large data streams with extremely high performance. These data streams are persisted in the Kafka system.
-This means that the data can not only be processed in real time, but can also be used for analysis.
-With libraries such as Kafka Streams API, states can be determined from data streams and also persisted.
-
-All of this makes Kafka a Swiss Army Knife.
-
-Theoretically, Kafka can be used as a:
-
-- Messaging System
-- Data Streaming Plattform 
-- Data Lake
-- Data Warehouse 
-- Event Store  
-- Database 
+...
 
 
-All of this makes Kafka so powerful and unique.

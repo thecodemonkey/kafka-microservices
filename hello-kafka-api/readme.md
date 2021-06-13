@@ -1,4 +1,4 @@
-# Hello Kafka 
+# Hello Kafka API
 a tiny publish/subscribe example using Kafka + Spring + Kotlin + Gradle
 
 ![alt text](../docs/kafka-publish-subscribe.png)

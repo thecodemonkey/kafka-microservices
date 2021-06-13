@@ -12,7 +12,7 @@ An executable Kafka environment consists in a minimal variant of at least 2 comp
 
 ## Kafka as Docker
 
-The easiest way to run Kafka locally is of course the Docker alternative. Since we need a minimum of 2 services(Broker and Zookeeper), Docker-Compose is used here. 
+The easiest way to run Kafka locally is of course the Docker Container. Since we need a minimum of 2 services(Broker and Zookeeper), Docker-Compose is used here. 
 
 To give further insight into the Kafka ecosystem, in addition to the core components, I have added another 2 optional services. A Kafka Web UI, which makes it very easy to administer Kafka and a REST Proxy, which makes it possible to access Kafka clusters using REST API. 
 
@@ -32,7 +32,7 @@ services:
     ports:
       - "2181:2181"
 
-  kafka:
+  kafka:    # broker
     image: wurstmeister/kafka:2.12-2.5.0
     ports:
       - "9092:9092"
@@ -77,19 +77,30 @@ services:
 
 ## Broker
 
-xxx
+Kafka Broker is the heart of the Kafka system. Usually, brokers are operated in clusters.  
+A broker is a single node of the cluster. The broker takes care of receiving, distributing and storing messages in the topics. Connected systems communicate with the broker via TCP:PORT.
 
 <br/><br/>
 
+## Topic
+
+A topic is a message channel(logical container) to which messages are sent and from which messages are received. A Kafka cluster can manage as many topics as needed. Messages are stored in topics in a chronological order. In general, topics are immutable. Messages come in, but are not modified or deleted. However, Kafka offers many different configuration options at this point, so that topics can be used in different ways.
+
+<br/><br/>
+
+
 ## Zookeeper
 
-xxx
+Zookeeper is an internal maintenance service in a Kafka cluster. Zookeeper has many different tasks. For example, it takes care of the partitioning of the topics, of the failover, of the synchronization of the configurations or of the metadata in the Kafka cluster, and so on. 
+
 
 <br/><br/>
 
 ## REST Proxy (optional)
 
-xxx
+REST Proxy enables a rest based communication with a Kafka system. You can send and receive messages, but also perform various administrative tasks. 
+
+A REST proxy could possibly give a browser application or a mobile app direct access to a Kafka system without the need for a backend. 
 
 more information about REST Proxy you can find at [docs.confluent.io](https://docs.confluent.io/platform/current/kafka-rest/index.html) ans [GitHub repo](https://github.com/confluentinc/kafka-rest)
 
@@ -97,7 +108,7 @@ more information about REST Proxy you can find at [docs.confluent.io](https://do
 
 ## Admin UI (optional)
 
-xxx
+Admin UI is a web application that provides a simple graphical interface for managing a Kafka cluster. You can create topics, send/receive messages and much more. 
 
 more information about AKHQ-Admin UI you can find at [akhq.io](https://akhq.io/) and [GitHub repo](https://github.com/tchiotludo/akhq)
 
@@ -137,31 +148,39 @@ docker-compose down                          # stop kafka environment
   
 ```
 
+<br/><br/>
+
+
 ## play with Kafka
 
-in windows bitte keine Git BASH verwendet, nur cmd.
+
+The fastest way to experience kafka is to send and receive messages. 
+Kafka System provides simple shell scripts that you can try out directly in the console.
+Since our Kafka cluster runs in Docker containers, our commands are customized to run outside the containers:
+
+
+> please do not use Git BASH on windows, only cmd.
 
 <br/><br/>
 
 ### send a message
 
+open producer prompt, type text message and press return key to send a single message to a topic "test"
+
 ```bash
 
 docker exec -ti kafka-microservices_kafka_1 /opt/kafka/bin/kafka-console-producer.sh --broker-list localhost:9092 --topic test
-
    
 ```
 
-
-<br/><br/>
-
 ### receive the message
+
+The consumer starts and subscribes to the topic. All received messages are automatically displayed in the console.
 
 ```bash
 
-docker exec -ti kafka-microservices_kafka_1 /opt/kafka/bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic test --from-beginning 
+docker exec -ti kafka-microservices_kafka_1 /opt/kafka/bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic test --from-beginning    
 
-    
 ```
 
 <br/><br/>
@@ -196,10 +215,12 @@ Theoretically, Kafka can be used as a:
 All of this makes Kafka so powerful and unique.
 
 <br/><br/>
+
 ## Kafka ecosystem
 
 <br/><br/>
 
-## control Kafka outside of Docker :
 
-https://gist.github.com/DevoKun/01b6c9963d5508579f4cbd75d52640a9
+## references
+
+[control Kafka via Docker cli](https://gist.github.com/DevoKun/01b6c9963d5508579f4cbd75d52640a9)

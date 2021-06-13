@@ -33,6 +33,7 @@ services:
       - "2181:2181"
 
   kafka:    # broker
+    container_name: kafka  
     image: wurstmeister/kafka:2.12-2.5.0
     ports:
       - "9092:9092"
@@ -128,16 +129,19 @@ more information about AKHQ-Admin UI you can find at [akhq.io](https://akhq.io/)
 ### run Kafka
 
 This project provides a docker-compose.yml to run a complete Kafka environment locally.
+
 In addition, the docker-compose.yml contains a web UI for managing the Kafka system. The web UI is
 after a successful start of the docker-compose at http://localhost:8081
 There you can also create topics, write and read messages.
 
+> 
 > The Kafka environment absolutely needs a host name (KAFKA_ADVERTISED_HOST_NAME) this is already in docker-compose.yml
 > configured as **"kafka"**.
 >
 > So you need a DNS entry in the local etc / hosts file:
 >
 > 127.0.0.1  kafka
+> 
 
 With docker-compose the Kafka environment can be started and stopped. 
 
@@ -169,7 +173,7 @@ open producer prompt, type text message and press return key to send a single me
 
 ```bash
 
-docker exec -ti kafka-microservices_kafka_1 /opt/kafka/bin/kafka-console-producer.sh --broker-list localhost:9092 --topic test
+docker exec -ti kafka /opt/kafka/bin/kafka-console-producer.sh --broker-list localhost:9092 --topic test
    
 ```
 
@@ -179,9 +183,12 @@ The consumer starts and subscribes to the topic. All received messages are autom
 
 ```bash
 
-docker exec -ti kafka-microservices_kafka_1 /opt/kafka/bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic test --from-beginning    
+docker exec -ti kafka /opt/kafka/bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic test --from-beginning    
 
 ```
+
+
+> Use Admin UI in Browser: http://localhost:8081 and try out pubsub via UI!
 
 <br/><br/>
 

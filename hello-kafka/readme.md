@@ -19,7 +19,7 @@ To give further insight into the Kafka ecosystem, in addition to the core compon
 There are many different images available in the docker hub. I decided to use the following setup:
 
 ```yaml
-#docker-compose.yml
+#root/docker-compose.yml
 
 version: "3.4"
 
@@ -79,13 +79,26 @@ services:
 ## Broker
 
 Kafka Broker is the heart of the Kafka system. Usually, brokers are operated in clusters.  
-A broker is a single node of the cluster. The broker takes care of receiving, distributing and storing messages in the topics. Connected systems communicate with the broker via TCP:PORT.
+A broker is a single node of the cluster. The broker takes care of receiving, distributing and storing messages in the topics. Connected clients(Consumer, Producer) communicate with the broker via TCP:PORT.
 
 <br/><br/>
 
 ## Topic
 
 A topic is a message channel(logical container) to which messages are sent and from which messages are received. A Kafka cluster can manage as many topics as needed. Messages are stored in topics in a chronological order. In general, topics are immutable. Messages come in, but are not modified or deleted. However, Kafka offers many different configuration options at this point, so that topics can be used in different ways.
+
+<br/><br/>
+
+
+## Producer
+
+Kafka client that publishes messages to one or more topics of a Kafka system is called a producer.
+
+<br/><br/>
+
+## Consumer
+
+Consumer is also a client that receives the messages by subscribing to one or more Topics.
 
 <br/><br/>
 
@@ -128,14 +141,14 @@ more information about AKHQ-Admin UI you can find at [akhq.io](https://akhq.io/)
 
 ### run Kafka
 
-This project provides a docker-compose.yml to run a complete Kafka environment locally.
+This project provides a [docker-compose.yml](../docker-compose.yml) located in root folder to run a complete Kafka environment locally.
 
-In addition, the docker-compose.yml contains a web UI for managing the Kafka system. The web UI is
+In addition, the [docker-compose.yml](../docker-compose.yml) contains a web UI for managing the Kafka system. The web UI is
 after a successful start of the docker-compose at http://localhost:8081
 There you can also create topics, write and read messages.
 
 > 
-> The Kafka environment absolutely needs a host name (KAFKA_ADVERTISED_HOST_NAME) this is already in docker-compose.yml
+> The Kafka environment absolutely needs a host name (KAFKA_ADVERTISED_HOST_NAME) this is already in [docker-compose.yml](../docker-compose.yml)
 > configured as **"kafka"**.
 >
 > So you need a DNS entry in the local etc / hosts file:
@@ -146,9 +159,11 @@ There you can also create topics, write and read messages.
 With docker-compose the Kafka environment can be started and stopped. 
 
 ```bash
+                                             # 1. get project sources from git
+git clone https://github.com/thecodemonkey/kafka-microservices.git      
 
-docker-compose -f docker-compose.yml up -d   # start kafka environment
-docker-compose down                          # stop kafka environment
+docker-compose -f docker-compose.yml up -d   # 2. start kafka environment
+docker-compose down                          # 3. stop kafka environment
   
 ```
 
@@ -169,7 +184,7 @@ Since our Kafka cluster runs in Docker containers, our commands are customized t
 
 ### send a message
 
-open producer prompt, type text message and press return key to send a single message to a topic "test"
+start producer prompt, type text message and press return key to send a single message to a topic "test"
 
 ```bash
 
@@ -179,7 +194,7 @@ docker exec -ti kafka /opt/kafka/bin/kafka-console-producer.sh --broker-list loc
 
 ### receive the message
 
-The consumer starts and subscribes to the topic. All received messages are automatically displayed in the console.
+The consumer starts and subscribes to the topic "test". All received messages are automatically displayed in the console.
 
 ```bash
 
@@ -187,8 +202,7 @@ docker exec -ti kafka /opt/kafka/bin/kafka-console-consumer.sh --bootstrap-serve
 
 ```
 
-
-> Use Admin UI in Browser: http://localhost:8081 and try out pubsub via UI!
+> Try out pubsub via Admin UI in Browser: http://localhost:8081 
 
 <br/><br/>
 

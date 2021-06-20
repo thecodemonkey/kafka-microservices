@@ -1,6 +1,6 @@
-# Kafka
+# Event Driven Microservices with Kafka
 
-A series of tiny examples around the **Kafka** and **event driven microservices** implemented in Kotlin
+A series of tiny examples around **Kafka** and **event driven microservices**
 
 ![kafka microservices](docs/kafka.png)
 
@@ -17,6 +17,7 @@ A series of tiny examples around the **Kafka** and **event driven microservices*
   - [hello kafka saga](#hello-kafka-saga)    
   - [hello kafka connect](#hello-kafka-connect)
   - [hello kafka ksqlDB](#hello-kafka-ksqldb)
+  - [hello kafka security](#hello-kafka-security)
 - [contribution](#contribution)
 - [contact](#contact)
 - [license](#license)
@@ -34,7 +35,7 @@ Not least because companies like Google, Facebook, LinkedIn or Amazon have achie
 The great advantage of these technologies and the new approaches lies in their scaling.
 This does not necessarily mean the runtime performance of an application, but rather the
 Scaling the business model. Above all, the scaling of the actual software development process.
-The point is that you no longer have to develop a platform with **ONE LARGE IT team**. Instead, many smaller teams can work in parallel and without any major arrangements
+The point is that you no longer have to develop a platform with **ONE LARGE TEAM**. Instead, many smaller teams can work in parallel and without any major arrangements
 bring different parts of an application into production very quickly and effectively and operate them there.
 
 Decentralization and loose coupling bring the advantage not only  in the code or in the infrastructure operation,
@@ -96,9 +97,10 @@ a simple publish/subscribe sample using Kafka + Spring + Kotlin + Gradle
 
 <a name="hello-kafka-unit-test"></a>
 
-### hello **kafka** unit-test
+### [hello **kafka** unit-test](hello-kafka-unit-test)
 
-*...coming soon*
+a simple Unit-Test using Kafka + Spring + Kotlin + JUnit5
+
 <br/><br/>
 
 <a name="hello-kafka-streams"></a>
@@ -108,7 +110,6 @@ a simple Kafka data streaming example using  Kafka + Spring + Kotlin + Gradle
 
 Kafka Streams Api is not an additional runtime component of the Kafka system itself,
 but rather a library + architectural pattern. There is a separate lib or several different implementations for each technology stack(Java, Node/TypeSCript, Python..)
-
 
 <br/><br/>
 
@@ -146,6 +147,12 @@ The communication between the decoupled Command- and Query-Services takes place 
 a minimal Event Sourcing implementation  using Kafka + Spring + Kotlin + Gradle
 
 event sourcing makes microservices more scalable and more resilient. And all of that by design. Kafka can be used excellently as an event store.
+
+#### [hello **kafka event sourcing with streams api**](hello-kafka-es-streamsapi) 
+
+another event sourcing example using Streams API.
+In this example, the state is not stored in a local DB, but in a Kafka State Store.
+
 <br/><br/>
 
 <a name="hello-kafka-saga"></a>
@@ -175,6 +182,14 @@ a minimal Kafka Connect implementation using Kafka + Spring + Kotlin + Gradle + 
 ### hello **kafka ksqlDB**
 
 a minimal stream processing example using Kafka ksqlDB
+
+*...coming soon*
+
+<br/><br/>
+
+### hello **kafka security**
+
+a minimal kafka security examples
 
 *...coming soon*
 

@@ -63,6 +63,9 @@ class ContainerKafkaTest(
         fun kafkaListenerContainerFactory(): ConcurrentKafkaListenerContainerFactory<Int, String> {
             val factory = ConcurrentKafkaListenerContainerFactory<Int, String>()
             factory.setConsumerFactory(consumerFactory())
+
+
+
             return factory
         }
 

@@ -36,7 +36,7 @@ tasks.withType<KotlinCompile> {
 }
 
 task<Exec>("start-kafka") {
-    commandLine("docker-compose", "-f", "../docker-compose.yml", "up", "-d")
+    commandLine("docker-compose", "-f", "../../docker-compose.yml", "up", "-d")
 }
 
 task<Exec>("stop-kafka") {

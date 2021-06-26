@@ -88,6 +88,10 @@ the following packages are used for this purpose.
 
 ### EmbeddedKafkaTest
 
+This is probably the easiest way to test Kafka. Just add **@EmbeddedKafka**
+annotation to the test class and set the brockerPropierties. It is best to make sure that the  
+port is not used yet.
+
 ```kotlin
 
 @SpringBootTest(properties = [
@@ -104,7 +108,6 @@ class EmbeddedKafkaTest(
     private val producer: Producer
 ) {
 
-
     @Test
     fun `should publish and receive 2 messages`() {
         val msg = "helllllo";
@@ -118,16 +121,19 @@ class EmbeddedKafkaTest(
         consumer.latch.await(2000, TimeUnit.MILLISECONDS)
 
         assertThat(consumer.latch.count).isEqualTo(0)
-        assertThat(consumer.data).isNotNull
-        assertThat(consumer.data.count()).isEqualTo(2)
-        assertThat(consumer.data[0]).isEqualTo(msg)
-        assertThat(consumer.data[1]).isEqualTo(msg)
+        ...
     }
 }
 
 ```
 
 ### ContainerKafkaTest
+
+This possibility allows unit testing with real containers. 
+Thus, the test environment can be adapted as closely as possible to the productive environment.
+
+more details: https://www.testcontainers.org/modules/kafka/
+
 
 ```kotlin
 
@@ -158,30 +164,6 @@ class ContainerKafkaTest(
 
 <br/><br/>
 
-## run sample
-
-### prerequisites
-
-- gradle
-- java sdk 1.8
-- kotlin
-
-<br/><br/>
-
-```shell
-                                          # 1. get project sources from git
-git clone https://github.com/thecodemonkey/kafka-microservices.git      
-
-                                          # 2. local dns setup => etc/hosts => 127.0.0.1  kafka
-
-cd  hello-kafka                           # 3. go to project root folder  
-
-gradle test -i                            # 4. execute unit-tests
-
-
-```
-
-<br/><br/>
 
 ## references
 

@@ -1,6 +1,6 @@
 # Hello Kafka Streams
 
-a tiny **Stream Processing** example using Kafka + Spring + Kotlin + Gradle
+a tiny **Stream Processing** example using Kafka + Spring 
 
 ![stream processing](../docs/kafka-streams-sample.png)
 
@@ -97,7 +97,7 @@ class Processor {
 ```
 
 
-The processor needs the following configuration (* application.yml *):
+The processor needs the following configuration (*application.yml*):
 
 ```yaml
 spring:
@@ -112,54 +112,6 @@ spring:
 ```
 
 The Spring Framework also makes things a lot easier at this point.
-
-
-## run sample
-
-## prerequisites
-
-- docker/docker-compose
-- gradle
-- java sdk 1.8
-- kotlin
-- local dns mapping: 127.0.0.1 kafka
-
-<br/><br/>
-
-```shell
-
-                                                     # 1. get project sources
-git clone https://github.com/thecodemonkey/kafka-microservices.git      
-
-                                                     # 2. local dns setup => etc/hosts => 127.0.0.1  kafka
-
-cd  hello-kafka-streams                              # 3. go to project root folder  
-
-gradle start-kafka                                   # 4. start kafka infrastructure(zookeeper, kafka, web gui) as docker containers.
-                                                     # see docker-compose.yml
-
-gradle bootRun                                       # 5. start publish, processing and consuming the data(sends messages to and receives messages from kafka). 
-                                                     # on first run, pleas start => stop => start again.  
-
-```
-
-see console output:
-
-```bash
-publish  MESSAGE : hello kafka streams
-process  MESSAGE in stream: ##=> hello kafka streams <=##
-receive  MESSAGE : ##=> hello kafka streams <=##
-```
-
-Each of the 3 components (producer, processor and consumer) is generated
-the corresponding console output.
-
-> ATTENTION: The application must be started => stopped => and restarted again at the first time.
-> This ensures that the topic "input-topic" is created before StreamBuilder subscribes to it.
-> Typically, topics would be created before by the administrative process.
-> To keep the examples simple, this has been omitted here.
-
-<br/><br/>
 
 
 ---
@@ -227,7 +179,7 @@ Kafka Streams API basically consists of 3 main components:
 
 - **StreamsBuilder** (subscribes to topics, generates data streams and forwards them)
 - **KStream<,>**     (API for data streams)
-- **KTable<,>**      (KTables is something like a DB table in memory. In KTables states can be loaded and held. KTables can also be persisted.)
+- **KTable<,>**      (KTables is something like a DB table. In KTables states can be loaded and held. KTables can also be persistent.)
 
 > Strictly speaking, the example uses Kafka Streams DSL. This is the height level Streams API.
 > If this is not enough, you can use the low-level Processor API.

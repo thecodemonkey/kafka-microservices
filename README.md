@@ -1,6 +1,6 @@
 # Event Driven Microservices with Kafka
 
-A series of tiny examples around **Kafka** and **event driven microservices**
+A series of tiny examples around **Kafka** and **event driven microservices** using Spring Framework written in Kotlin & Java.
 
 ![kafka microservices](docs/kafka.png)
 
@@ -91,7 +91,7 @@ More about the Kafka ecosystem.
 <a name="hello-kafka-api"></a>
 
 ### [hello **kafka** api](hello-kafka-api) <br/>
-a simple publish/subscribe sample using Kafka + Spring + Kotlin + Gradle
+a simple publish/subscribe sample using Kafka + Spring
 
 <br/><br/>
 
@@ -99,14 +99,14 @@ a simple publish/subscribe sample using Kafka + Spring + Kotlin + Gradle
 
 ### [hello **kafka** unit-test](hello-kafka-unit-test)
 
-a simple Unit-Test using Kafka + Spring + Kotlin + JUnit5
+a simple Unit-Test using Kafka + Spring + JUnit5 + EmbeddedKafka/KafkaContainer
 
 <br/><br/>
 
 <a name="hello-kafka-streams"></a>
 
 ### [hello **kafka streams**](hello-kafka-streams) <br/>
-a simple Kafka data streaming example using  Kafka + Spring + Kotlin + Gradle
+a simple Kafka data streaming example using  Kafka + Spring
 
 Kafka Streams Api is not an additional runtime component of the Kafka system itself,
 but rather a library + architectural pattern. There is a separate lib or several different implementations for each technology stack(Java, Node/TypeSCript, Python..)
@@ -116,7 +116,7 @@ but rather a library + architectural pattern. There is a separate lib or several
 <a name="hello-kafka-microservices"></a>
 
 ### [hello **kafka microservices**](hello-kafka-microservices) <br/>
-a simple event driven microservices example using  Kafka + Spring + Kotlin + Gradle +  H2
+a simple event driven microservices example using  Kafka + Spring + H2
 
 There are 2 essential points that make up event-driven microservices:
 
@@ -133,7 +133,7 @@ Kafka is ideally suited as an event bus to ensure communication between the micr
 <a name="hello-kafka-cqrs"></a>
 
 ### [hello **kafka cqrs**](hello-kafka-cqrs) <br/>
-a minimal CQRS microservice implementation using Kafka + Spring + Kotlin + Gradle + H2
+a minimal CQRS microservice implementation using Kafka + Spring + H2
 
 The purpose of CQRS (Command-Query-Responsibility-Segregation) lies in the decoupling of read and write operations.
 The communication between the decoupled Command- and Query-Services takes place by means of events. 
@@ -144,7 +144,7 @@ The communication between the decoupled Command- and Query-Services takes place 
 <a name="hello-kafka-event-sourcing"></a>
 
 ### [hello **kafka event sourcing**](hello-kafka-es) <br/>
-a minimal Event Sourcing implementation  using Kafka + Spring + Kotlin + Gradle
+a minimal Event Sourcing implementation  using Kafka + Spring
 
 event sourcing makes microservices more scalable and more resilient. And all of that by design. Kafka can be used excellently as an event store.
 
@@ -159,7 +159,7 @@ In this example, the state is not stored in a local DB, but in a Kafka State Sto
 
 ### hello **kafka saga**
 <!-- [hello-kafka-saga](hello-kafka-saga) <br/> -->
-a minimal SAGA pattern implementation using Kafka + Spring + Kotlin + Gradle + H2
+a minimal SAGA pattern implementation using Kafka + Spring
 
 *...coming soon*
 
@@ -171,7 +171,7 @@ a minimal SAGA pattern implementation using Kafka + Spring + Kotlin + Gradle + H
 ### hello **kafka connect**
 
 <!-- [hello-kafka-connect](hello-kafka-connect) <br/> -->
-a minimal Kafka Connect implementation using Kafka + Spring + Kotlin + Gradle + H2
+a minimal Kafka Connect implementation using Kafka + Spring
 
 *...coming soon*
 

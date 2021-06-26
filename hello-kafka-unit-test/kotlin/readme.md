@@ -1,4 +1,4 @@
-# # Hello Kafka Unit-Test
+# Hello Kafka Unit-Test
 a simple Unit-Test using Kafka + Spring + JUnit5 + Gradle + Kotlin
 
 <br/><br/>

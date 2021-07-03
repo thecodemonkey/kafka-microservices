@@ -1,15 +1,15 @@
 # Hello Kafka Streams
 
-a tiny **Stream Processing** example using Kafka + Spring + Kotlin + Gradle
+a tiny **Stream Processing** example using Kafka + Spring + Java + Maven
 
 <br/><br/>
 
 ## prerequisites
 
 - docker/docker-compose
-- gradle
+- maven/mvn
 - java sdk 1.8
-- kotlin
+
 
 <br/><br/>
 
@@ -24,15 +24,15 @@ a tiny **Stream Processing** example using Kafka + Spring + Kotlin + Gradle
 ### 2. start local Kafka Environment
 
 ```shell
-docker-compose -f docker-compose.yml up -d
+docker-compose up -d
 #stop kafka:  docker-compose down
 ```
 
 ### 3. run sample application
 
 ```shell
-cd  hello-kafka-streams/kotlin
-gradle bootRun 
+cd  hello-kafka-streams/java
+mvn spring-boot:run
 ```
 
 ### 4. see console output

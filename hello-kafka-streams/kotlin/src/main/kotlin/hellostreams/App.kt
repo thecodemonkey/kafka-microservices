@@ -8,5 +8,5 @@ class App
 
     fun main(args: Array<String>) {
         runApplication<App>(*args)
-        print("start stream processing..")
+        println("start stream processing..")
     }

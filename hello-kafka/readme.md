@@ -1,5 +1,5 @@
 # Hello Kafka 
-setting up a local kafka playground.
+setting up a local kafka environment.
 
 ![alt text](../docs/kafka-basic.png)
 
@@ -10,6 +10,75 @@ An executable Kafka environment consists in a minimal variant of at least 2 comp
 
 <br/><br/>
 
+
+## Quickstart
+
+### 1. get the source code
+
+```shell
+
+git clone https://github.com/thecodemonkey/kafka-microservices.git
+
+```
+
+### 2. start local Kafka Environment
+
+The easiest way to run Kafka locally is of course as Docker Container. Since we need a minimum of 2 services(Broker and Zookeeper), Docker-Compose is used here. 
+
+```yaml
+
+services:
+  zookeeper:
+    image: zookeeper:3.7.0
+    ports: ["2181:2181"]
+
+  kafka:
+    image: wurstmeister/kafka:2.12-2.5.0
+    container_name: kafka
+    ports: ["9092:9092"]
+    depends_on: [zookeeper]
+    environment:
+      KAFKA_ADVERTISED_HOST_NAME: kafka
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+
+```
+
+```shell
+
+cd hello-kafka
+docker-compose up
+
+```
+
+### 3. publish a message
+
+open new terminal and run command:
+
+```bash
+
+docker exec -ti kafka /opt/kafka/bin/kafka-console-producer.sh --broker-list localhost:9092 --topic test
+     
+```
+
+Type text message and press "return" key to send a single message to a topic "test".
+
+### 4. subscribe topic to recieve messages
+
+open new terminal and run command:
+
+```bash
+
+docker exec -ti kafka /opt/kafka/bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic test --from-beginning    
+
+```
+
+The consumer starts and subscribes to the topic "test". All messages sent to topic "test" are received and displayed automatically.
+
+<br/><br/>
+
+---
+
+<br/><br/>
 ## Kafka as Docker
 
 The easiest way to run Kafka locally is of course the Docker Container. Since we need a minimum of 2 services(Broker and Zookeeper), Docker-Compose is used here. 
@@ -139,7 +208,7 @@ more information about AKHQ-Admin UI you can find at [akhq.io](https://akhq.io/)
 
 <br/><br/>
 
-### run Kafka
+### docker-compose.yml of the project
 
 This project provides a [docker-compose.yml](../docker-compose.yml) located in root folder to run a complete Kafka environment locally.
 
@@ -151,60 +220,11 @@ There you can also create topics, write and read messages.
 > The Kafka environment absolutely needs a host name (KAFKA_ADVERTISED_HOST_NAME) this is already in [docker-compose.yml](../docker-compose.yml)
 > configured as **"kafka"**.
 >
-> So you need a DNS entry in the local etc / hosts file:
+> If you want to use a web UI, you need a corresponding DNS entry in your local etc / hosts file:
 >
 > 127.0.0.1  kafka
 > 
 
-With docker-compose the Kafka environment can be started and stopped. 
-
-```bash
-                                             # 1. get project sources from git
-git clone https://github.com/thecodemonkey/kafka-microservices.git      
-
-docker-compose -f docker-compose.yml up -d   # 2. start kafka environment
-docker-compose down                          # 3. stop kafka environment
-  
-```
-
-<br/><br/>
-
-
-## play with Kafka
-
-
-The fastest way to experience kafka is to send and receive messages. 
-Kafka System provides simple shell scripts that you can try out directly in the console.
-Since our Kafka cluster runs in Docker containers, our commands are customized to run outside the containers:
-
-
-> please do not use Git BASH on windows, only cmd.
-
-<br/><br/>
-
-### send a message
-
-start producer prompt, type text message and press return key to send a single message to a topic "test"
-
-```bash
-
-docker exec -ti kafka /opt/kafka/bin/kafka-console-producer.sh --broker-list localhost:9092 --topic test
-   
-```
-
-### receive the message
-
-The consumer starts and subscribes to the topic "test". All received messages are automatically displayed in the console.
-
-```bash
-
-docker exec -ti kafka /opt/kafka/bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic test --from-beginning    
-
-```
-
-> Try out pubsub via Admin UI in Browser: http://localhost:8081 
-
-<br/><br/>
 
 -----
 

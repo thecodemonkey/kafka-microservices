@@ -1,0 +1,20 @@
+services:
+  zookeeper:
+    image: zookeeper:3.7.0
+    ports: ["2181:2181"]
+
+  kafka:
+    image: wurstmeister/kafka:2.12-2.5.0
+    ports: ["9092:9092"]
+    depends_on: [zookeeper]
+    environment:
+      KAFKA_ADVERTISED_HOST_NAME: kafka
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+
+  kafka-web-ui:
+    image: tchiotludo/akhq:0.17.0
+    ports: ["8081:8080"]
+    depends_on: [kafka]
+    environment:
+      AKHQ_CONFIGURATION: |
+        akhq.connections.docker-kafka-server.properties.bootstrap.servers: kafka:9092

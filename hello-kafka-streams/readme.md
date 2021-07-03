@@ -59,6 +59,14 @@ Spring takes a lot of work off here too and reduces the code to a minimum.
 @Service
 class Consumer() {
 
+    // A topic must exist before the KafkaListener can subscribe to it.
+    // This ensures that the topic is created by Spring Framework, when the 
+    // application is started.
+    @Bean
+    fun outputTopic(): NewTopic {
+        return TopicBuilder.name("output-topic").build()
+    }
+    
     @KafkaListener(topics= ["output-topic"], groupId = "kafka_kotlin_id")
     fun consume(message:String) : Unit {
         println("receive    MESSAGE : $message at ${LocalDateTime.now()}");
@@ -112,7 +120,6 @@ spring:
 ```
 
 The Spring Framework also makes things a lot easier at this point.
-
 
 ---
 
